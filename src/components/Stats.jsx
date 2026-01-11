@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { projects } from './Projects';
 import { skills } from '../Page/Resume/Resume';
 import axios from 'axios';
 
 
-// Replace with your GitHub username and token
 const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME;
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
@@ -13,121 +12,98 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const Stats = () => {
 
-    const [commitCount, setCommitCount] = useState(0)
-
+    const [commitCount, setCommitCount] = useState(0);
+    const [isCommitCountAvailable, setIsCommitCountAvailable] = useState(false);
 
     useEffect(() => {
-        const fetchCommits = async () => {
+        const cacheKey = GITHUB_USERNAME ? `github_stats_${GITHUB_USERNAME}` : null;
+        const cacheTtlMs = 1000 * 60 * 60 * 6; // 6 hours
 
+        const readCache = () => {
+            if (!cacheKey) return null;
             try {
-                const repos = await fetchAllRepositories();
-
-                const commitCountPromises = repos.map(repo => {
-                    return axios.get(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/commits?per_page=1`, {
-                        headers: {
-                            Authorization: `token ${GITHUB_TOKEN}`
-                        }
-                    }).then(response => {
-                        const commitCount = response.headers['link']
-                            ? parseInt(response.headers['link'].match(/&page=(\d+)>; rel="last"/)[1])
-                            : response.data.length;
-                        return commitCount;
-                    }).catch(error => {
-                        console.error(`Error fetching commits for ${repo.name}:`, error);
-                        return 0;
-                    });
-                });
-
-                const commitCounts = await Promise.all(commitCountPromises);
-                const totalCommits = commitCounts.reduce((acc, count) => acc + count, 0);
-
-                setCommitCount(totalCommits);
-            } catch (error) {
-                console.error('Error fetching repositories:', error);
+                const raw = localStorage.getItem(cacheKey);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (!parsed?.ts) return null;
+                if (Date.now() - parsed.ts > cacheTtlMs) return null;
+                return parsed;
+            } catch {
+                return null;
             }
-
-
-
-            // try {
-            //     const allRepos = await fetchAllRepositories()
-            //     console.log("All Repos", allRepos)
-
-
-            //     let totalCommits = 0;
-            //     for (const repo of allRepos) {
-            //         try {
-            //             const commitsResponse = await fetchAllCommits(repo?.name);
-            //             totalCommits += commitsResponse.length;
-            //         } catch (commitError) {
-            //             console.error(`Error fetching commits for ${repo?.name}:`, commitError);
-            //         }
-            //     }
-            //     console.log("total commits", totalCommits)
-            //     setCommitCount(totalCommits);
-            // } catch (error) {
-            //     console.error('Error fetching repositories:', error);
-            // }
         };
 
-        fetchCommits();
+        const writeCache = (data) => {
+            if (!cacheKey) return;
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify({ ...data, ts: Date.now() }));
+            } catch {
+                // ignore cache failures
+            }
+        };
 
-    }, [commitCount]);
-
-
-
-    // all Repositories fetching
-    const fetchAllRepositories = async () => {
-        let page = 1;
-        let allRepos = [];
-
-        while (true) {
-            const reposResponse = await axios.get(`https://api.github.com/users/${GITHUB_USERNAME}/repos`, {
-                headers: {
-                    Authorization: `token ${GITHUB_TOKEN}`
-                },
-                params: {
-                    per_page: 100,
-                    page: page,
-                }
-            });
-
-            if (reposResponse.data.length === 0) {
-                break;
+        const fetchCommitContributions = async () => {
+            if (!GITHUB_USERNAME) {
+                setCommitCount(0);
+                setIsCommitCountAvailable(false);
+                return;
             }
 
-            allRepos = allRepos.concat(reposResponse.data);
-            page += 1
+            const cached = readCache();
+            if (cached?.commitCount != null && cached?.isCommitCountAvailable != null) {
+                setCommitCount(cached.commitCount);
+                setIsCommitCountAvailable(cached.isCommitCountAvailable);
+                return;
+            }
 
-        }
-        // console.log('all repositories', allRepos)
+            // Without a token, we can't reliably fetch a "total commits" count from GitHub's public REST APIs.
+            if (!GITHUB_TOKEN) {
+                setCommitCount(0);
+                setIsCommitCountAvailable(false);
+                writeCache({ commitCount: 0, isCommitCountAvailable: false });
+                return;
+            }
 
-        return allRepos;
-    }
+            try {
+                const query = `
+                  query($login: String!) {
+                    user(login: $login) {
+                      contributionsCollection {
+                        totalCommitContributions
+                      }
+                    }
+                  }
+                `;
 
+                const response = await axios.post(
+                    'https://api.github.com/graphql',
+                    {
+                        query,
+                        variables: { login: GITHUB_USERNAME },
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${GITHUB_TOKEN}`,
+                            Accept: 'application/vnd.github+json',
+                        },
+                    }
+                );
 
+                const total = response?.data?.data?.user?.contributionsCollection?.totalCommitContributions;
+                const normalized = typeof total === 'number' ? total : 0;
+                setCommitCount(normalized);
+                setIsCommitCountAvailable(true);
+                writeCache({ commitCount: normalized, isCommitCountAvailable: true });
+            } catch (error) {
+                console.error('Error fetching GitHub commit contributions:', error);
+                setCommitCount(0);
+                setIsCommitCountAvailable(false);
+                writeCache({ commitCount: 0, isCommitCountAvailable: false });
+            }
+        };
 
-    // all commits fetching
-    // const fetchAllCommits = async (repoName) => {
-    //     let commits = [];
-    //     let page = 1;
-    //     while (true) {
-    //         const response = await axios.get(`https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}/commits`, {
-    //             headers: {
-    //                 Authorization: `token ${GITHUB_TOKEN}`
-    //             },
-    //             params: {
-    //                 per_page: 100,
-    //                 page: page,
-    //             }
-    //         });
-    //         if (response.data.length === 0) break;
-    //         commits = commits.concat(response.data);
-    //         page += 1;
-    //     }
-    //     return commits;
-    // };
-
-
+        fetchCommitContributions();
+    }, []);
 
     const statsItems = [
         {
@@ -135,17 +111,21 @@ const Stats = () => {
             text: "Years of experience",
         },
         {
-            num: projects.length,
+            num: projects.items.length,
             text: "Projects completed",
         },
         {
             num: skills.skillsList.length,
             text: "Technologies mastered",
         },
-        {
-            num: commitCount,
-            text: "Code commits",
-        },
+        ...(isCommitCountAvailable
+            ? [
+                {
+                    num: commitCount,
+                    text: "Commits (last year)",
+                },
+            ]
+            : []),
     ]
 
 
@@ -161,6 +141,7 @@ const Stats = () => {
                                         end={stats.num}
                                         duration={5}
                                         delay={2}
+                                        separator=","
                                         className='text-4xl lg:text-6xl font-extrabold'
                                     />
                                     <p className={`${stats.text.length < 15 ? "max-w-[100px]" : "max-w-[150px]"} leading-snug text-white/80 `}>{stats.text}</p>

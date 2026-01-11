@@ -2,36 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BsArrowDownRight } from "react-icons/bs";
-
-
-
-const services = [
-    {
-        num: "01",
-        title: "Full Stack Web Development",
-        href: '',
-        description: "As a Full Stack Web Developer, I bring your vision to life through comprehensive and innovative web solutions. From the initial concept to the final deployment, I ensure a seamless and engaging user experience. My expertise spans both front-end and back-end development, enabling me to build robust, scalable, and visually appealing websites and applications."
-
-    },
-    {
-        num: "02",
-        title: "Web Design",
-        href: '',
-        description: "Transform your ideas into visually stunning and highly functional websites with my expert web design services. Whether you're looking to establish an online presence or revamp an existing site, I ensure a seamless, user-centric design tailored to your brand and business goals."
-    },
-    {
-        num: "03",
-        title: "Graphic Design",
-        href: '',
-        description: "Enhance your brand's identity with professional graphic design services that captivate and communicate. From logos to marketing materials, I provide comprehensive graphic design solutions that align with your brand and vision."
-    },
-    {
-        num: "04",
-        title: "Digital Marketing",
-        href: '',
-        description: "Elevate your brand and reach your target audience with comprehensive digital marketing services. From strategy to execution, I provide the expertise and tools needed to achieve your business goals and drive growth."
-    },
-]
+import { services } from '../../helpers/servicesData';
 
 const Services = () => {
     return (

@@ -15,17 +15,17 @@ const Home = () => {
 
                     {/* text */}
                     <div className='text-center lg:text-left'>
-                        <span className='text-xl'>Software Developer</span>
+                        <span className='text-xl'>Software Engineer</span>
 
-                        <h1 className='h1 mb-6'>
-                            Hello, I'm <br /> <span className='text-accent'>Sazedul Islam</span>
+                        <h1 className='h2 mb-6'>
+                            Hello, I'm <br /> <span className='text-accent h1'>Sazedul Islam</span>
                         </h1>
-                        <p className='max-w-[500px] leading-snug mb-9 text-white/80'>I'm a Full Stack developer with 2 years of experience in building web applications. I have a strong foundation in JavaScript, and I specialize in utilizing the MERN (MongoDB, Express.js, React.js, Node.js) stack to develop robust and scalable web solutions.</p>
+                        <p className='max-w-[500px] leading-snug mb-9 text-white/80'><span className='font-bold text-white'>Backend Software Engineer</span> with 2+ years of experience specializing in <span className='front-blod text-white'>Node.js, NestJS, and TypeScript</span>. Experienced in building scalable REST APIs, microservices, real-time systems, and subscription-based platforms using <span className='front-bold text-white'>PostgreSQL, MongoDB, Redis, AWS, and Docker</span>. Passionate about clean architecture, performance, and reliable backend systems.</p>
 
 
                         {/* button */}
                         <div className='flex flex-col lg:flex-row items-center gap-8'>
-                            <a href="/Sazedul Islam Resume.pdf" download >
+                            <a href="/public/Sazedul Islam Backend Engineer.pdf" download >
                                 <Button
                                     variant="outline"
                                     size="lg"

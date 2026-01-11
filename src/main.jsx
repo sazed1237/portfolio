@@ -12,6 +12,7 @@ import Resume from './Page/Resume/Resume.jsx';
 import Work from './Page/Work/Work.jsx';
 import Contact from './Page/Contact/Contact.jsx';
 import MainHome from './Page/Home/Home/MainHome.jsx';
+import NotFound from './Page/NotFound/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,12 +32,16 @@ const router = createBrowserRouter([
         element: <Resume></Resume>
       },
       {
-        path: 'work',
+        path: 'projects',
         element: <Work></Work>
       },
       {
         path: 'contact',
         element: <Contact></Contact>
+      },
+      {
+        path: '*',
+        element: <NotFound></NotFound>
       }
     ]
   },

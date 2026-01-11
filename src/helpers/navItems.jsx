@@ -12,8 +12,8 @@ export const navItems = [
         path: '/resume'
     },
     {
-        name: "Work",
-        path: '/work'
+        name: "Projects",
+        path: '/projects'
     },
     {
         name: "Contact",
