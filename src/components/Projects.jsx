@@ -14,6 +14,7 @@ import project13 from "../assets/projects/emaJohn.png";
 import project14 from "../assets/projects/crypto_steps.png";
 import project15 from "../assets/projects/globalchain.png";
 import project16 from "../assets/projects/realestate.png";
+import nails_beauty from "../assets/projects/nails_beauty.png";
 
 // projects data
 export const projects = {
@@ -52,6 +53,35 @@ export const projects = {
     },
     {
       num: "02",
+      name: "Lumi Nails Beauty Frontend",
+      category: "Frontend",
+      description:
+        "A modern Next.js salon website and dashboard UI featuring service discovery, appointment booking flows, gallery browsing, blog content, contact experience with map integration, and an admin dashboard for business insights.",
+      responsibilities: [
+        "Built the public-facing website with reusable feature sections for Home, About, Services, Gallery, Blog, FAQ, and Contact pages.",
+        "Implemented booking and contact forms using React Hook Form with clean validation-ready structure.",
+        "Developed a modular dashboard interface for bookings, customers, services, staff, testimonials, and analytics views.",
+        "Integrated charting and data-table UI patterns using ApexCharts and TanStack React Table for admin reporting.",
+        "Standardized static asset handling and optimized route structure using Next.js App Router and TypeScript.",
+      ],
+      techStack: [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS 4",
+        "Radix UI",
+        "React Hook Form",
+        "TanStack React Table",
+        "ApexCharts",
+        "Leaflet",
+        "Node.js",
+      ],
+      thumb: nails_beauty,
+      github: "https://github.com/sazed1237/Nails_Beauty",
+      liveDemo: "https://nails-beauty-beige.vercel.app/",
+    },
+    {
+      num: "03",
       name: "Serenity Habit & Mood Coach Backend",
       category: "Backend",
       description:
@@ -78,7 +108,7 @@ export const projects = {
       liveDemo: "https://sazed1237.github.io/serenity-habit-mood-backend/",
     },
     {
-      num: "03",
+      num: "04",
       name: "Streamly Backend (Streaming Platform API)",
       category: "Backend",
       description:
@@ -107,7 +137,7 @@ export const projects = {
       liveDemo: "https://sazed1237.github.io/streamly-platform-backend/",
     },
     {
-      num: "04",
+      num: "05",
       category: "Full Stack",
       title: "Helps Electronics",
       description:
@@ -128,7 +158,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=helps-electronics&type=&language=&sort=",
     },
     {
-      num: "05",
+      num: "06",
       category: "Frontend",
       title: "Hotel Villa",
       description:
@@ -141,7 +171,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=hotel-villa&type=&language=&sort=",
     },
     {
-      num: "06",
+      num: "07",
       category: "Dashboard",
       title: "Crypto Steps",
       description:
@@ -164,7 +194,7 @@ export const projects = {
     },
 
     {
-      num: "07",
+      num: "08",
       category: "Full Stack",
       title: "Global Chain Academy",
       description:
@@ -185,7 +215,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=global-academy&type=&language=&sort=",
     },
     {
-      num: "08",
+      num: "09",
       category: "Full Stack",
       title: "Bistro Boss",
       description:
@@ -207,7 +237,7 @@ export const projects = {
     },
 
     {
-      num: "09",
+      num: "10",
       category: "Full Stack",
       title: "Beauty Parlor",
       description:
@@ -227,7 +257,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=beauty-parlor&type=&language=&sort=",
     },
     {
-      num: "10",
+      num: "11",
       category: "Frontend",
       title: "Sazed Movie Hut",
       description:
@@ -245,7 +275,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=sazed-movie-hut&type=&language=&sort=",
     },
     {
-      num: "11",
+      num: "12",
       category: "Frontend",
       title: "Real estate",
       description:
@@ -261,7 +291,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=builder-manage&type=&language=&sort=",
     },
     {
-      num: "12",
+      num: "13",
       category: "Full Stack",
       title: "SIR Eco",
       description:
@@ -282,7 +312,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=sir-eco&type=&language=&sort=",
     },
     {
-      num: "13",
+      num: "14",
       category: "Full Stack",
       title: "The Dragon News",
       description:
@@ -301,7 +331,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=the-dragon-news-next&type=&language=&sort=",
     },
     {
-      num: "14",
+      num: "15",
       category: "Frontend",
       title: "Helpest BD",
       description:
@@ -319,7 +349,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=helpest&type=&language=&sort=",
     },
     {
-      num: "15",
+      num: "16",
       category: "Full Stack",
       title: "Doctors Portal",
       description:
@@ -339,7 +369,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=doctors-portal&type=&language=&sort=",
     },
     {
-      num: "16",
+      num: "17",
       category: "Full Stack",
       title: "Car Doctor",
       description:
@@ -359,7 +389,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=car-doctor&type=&language=&sort=",
     },
     {
-      num: "17",
+      num: "18",
       category: "Frontend",
       title: "Coffee Store Management",
       description:
@@ -375,7 +405,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=Espresso-emporium&type=&language=&sort=",
     },
     {
-      num: "18",
+      num: "19",
       category: "Full Stack",
       title: "The News Dragon",
       description:
@@ -395,7 +425,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=the-news-dragon-&type=&language=&sort=",
     },
     {
-      num: "19",
+      num: "20",
       category: "Frontend",
       title: "Ema John",
       description:
