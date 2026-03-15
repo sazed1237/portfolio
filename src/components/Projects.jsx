@@ -1,17 +1,17 @@
-import project1 from "../assets/projects/helpsElectronics.png";
-import project2 from "../assets/projects/bistro.png";
-import project3 from "../assets/projects/hotelVilla.png";
-import project4 from "../assets/projects/parlur.png";
-import project5 from "../assets/projects/sazedMovie.png";
+import project1 from "../assets/projects/AI creations.png";
+import project2 from "../assets/projects/Habit & mood check.png";
+import project3 from "../assets/projects/Streamly.png";
+import project4 from "../assets/projects/helpelectronicx.png";
+import project5 from "../assets/projects/Home villa.jpg";
 import project6 from "../assets/projects/sirEco.png";
-import project7 from "../assets/projects/theDragon.png";
+import project7 from "../assets/projects/bistro.png";
 import project8 from "../assets/projects/helpestbd.png";
 import project9 from "../assets/projects/doctorsPortal.png";
-import project10 from "../assets/projects/carDoctor.png";
+import project10 from "../assets/projects/movie.png";
 import project11 from "../assets/projects/coffeStoreManagement.png";
 import project12 from "../assets/projects/theNewSdragon.png";
 import project13 from "../assets/projects/emaJohn.png";
-import project14 from "../assets/projects/cryptoSteps.png";
+import project14 from "../assets/projects/crypto_steps.png";
 import project15 from "../assets/projects/globalchain.png";
 import project16 from "../assets/projects/realestate.png";
 
@@ -122,13 +122,26 @@ export const projects = {
         { name: "mongoose" },
         { name: "E-Commerce" },
       ],
-      thumb: project1,
+      thumb: project4,
       live: "https://helps-electronics-frontend.vercel.app/",
       github:
         "https://github.com/sazed1237?tab=repositories&q=helps-electronics&type=&language=&sort=",
     },
     {
       num: "05",
+      category: "Frontend",
+      title: "Hotel Villa",
+      description:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta velit consectetur ex veritatis. Obcaecati quibusdam explicabo ullam et labore quo.",
+      stack: [{ name: "Html 5" }, { name: "CSS" }, { name: "javascript" }],
+
+      thumb: project5,
+      live: "https://hotel-villa.surge.sh/",
+      github:
+        "https://github.com/sazed1237?tab=repositories&q=hotel-villa&type=&language=&sort=",
+    },
+    {
+      num: "06",
       category: "Dashboard",
       title: "Crypto Steps",
       description:
@@ -149,22 +162,7 @@ export const projects = {
       github:
         "https://github.com/sazed1237?tab=repositories&q=crypto-steps&type=&language=&sort=",
     },
-    {
-      num: "06",
-      category: "Frontend",
-      title: "Real estate",
-      description:
-        "Developed a comprehensive restaurant management website using the MERN stack, Tailwind CSS, and Firebase. The project features a complete user interface for customers, as well as a robust dashboard for both users and admins. Admin roles include full administrative capabilities. This project demonstrates expertise in creating complex, role-based web applications.",
-      stack: [
-        { name: "react.js" },
-        { name: "tailwind css" },
-        { name: "javascript" },
-      ],
-      thumb: project16,
-      live: "https://builder-manage.netlify.app/",
-      github:
-        "https://github.com/sazed1237?tab=repositories&q=builder-manage&type=&language=&sort=",
-    },
+
     {
       num: "07",
       category: "Full Stack",
@@ -202,25 +200,14 @@ export const projects = {
         { name: "firebase" },
         { name: "E-Commerce" },
       ],
-      thumb: project2,
+      thumb: project7,
       live: "https://bistro-boss-9d946.web.app/",
       github:
         "https://github.com/sazed1237?tab=repositories&q=bistro-boss&type=&language=&sort=",
     },
+
     {
       num: "09",
-      category: "Frontend",
-      title: "Hotel Villa",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta velit consectetur ex veritatis. Obcaecati quibusdam explicabo ullam et labore quo.",
-      stack: [{ name: "Html 5" }, { name: "CSS" }, { name: "javascript" }],
-      thumb: project3,
-      live: "https://hotel-villa.surge.sh/",
-      github:
-        "https://github.com/sazed1237?tab=repositories&q=hotel-villa&type=&language=&sort=",
-    },
-    {
-      num: "10",
       category: "Full Stack",
       title: "Beauty Parlor",
       description:
@@ -240,7 +227,7 @@ export const projects = {
         "https://github.com/sazed1237?tab=repositories&q=beauty-parlor&type=&language=&sort=",
     },
     {
-      num: "11",
+      num: "10",
       category: "Frontend",
       title: "Sazed Movie Hut",
       description:
@@ -252,10 +239,26 @@ export const projects = {
         { name: "react.js" },
         { name: "TMD" },
       ],
-      thumb: project5,
+      thumb: project10,
       live: "https://sazed-movie-hut.vercel.app/",
       github:
         "https://github.com/sazed1237?tab=repositories&q=sazed-movie-hut&type=&language=&sort=",
+    },
+    {
+      num: "11",
+      category: "Frontend",
+      title: "Real estate",
+      description:
+        "Developed a comprehensive restaurant management website using the MERN stack, Tailwind CSS, and Firebase. The project features a complete user interface for customers, as well as a robust dashboard for both users and admins. Admin roles include full administrative capabilities. This project demonstrates expertise in creating complex, role-based web applications.",
+      stack: [
+        { name: "react.js" },
+        { name: "tailwind css" },
+        { name: "javascript" },
+      ],
+      thumb: project16,
+      live: "https://builder-manage.netlify.app/",
+      github:
+        "https://github.com/sazed1237?tab=repositories&q=builder-manage&type=&language=&sort=",
     },
     {
       num: "12",
