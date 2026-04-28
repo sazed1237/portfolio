@@ -19,7 +19,7 @@ const MobileNav = () => {
                 <div className='mb-16 mt-20 text-center'>
                     <Link to={'/'}>
                         <h1 className='text-xl font-semibold'>
-                            Sazed <span className='text-sm text-accent '>Creations's</span>
+                            Sazed <span className='text-sm text-accent '>Creations</span>
                         </h1>
                     </Link>
                 </div>

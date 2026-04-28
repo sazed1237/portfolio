@@ -17,7 +17,7 @@ const Photo = () => {
                 }}
             >
                 {/* Image div */}
-                <motion.div
+                    <motion.div
                     initial={{ opacity: 0 }}
                     animate={{
                         opacity: 1,
@@ -33,6 +33,8 @@ const Photo = () => {
                         priority="true"
                         quality={100}
                         fill="true"
+                        alt="Sazedul Islam — Backend Developer"
+                        loading="lazy"
                         className="object-contain"
                     />
                 </motion.div>

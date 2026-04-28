@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { projects } from '../../components/Projects';
-import { Link } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import WorkSliderBtns from '../../components/WorkSliderBtns';
@@ -108,11 +107,10 @@ const Work = () => {
                             <div className='flex items-center gap-4'>
                                 {/* live project button */}
                                 {current.liveUrl ? (
-                                    <Link target='_blank' to={current.liveUrl}>
+                                    <a target='_blank' rel='noopener noreferrer' href={current.liveUrl}>
                                         <TooltipProvider delayDuration={100}>
                                             <Tooltip>
                                                 <TooltipTrigger className='w-[60px] h-[60px] rounded-full bg-white/5 flex justify-center items-center group'>
-                                                    {/* icon */}
                                                     <BsArrowUpRight className='text-white text-3xl group-hover:text-accent' />
                                                 </TooltipTrigger>
                                                 <TooltipContent>
@@ -120,16 +118,15 @@ const Work = () => {
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
-                                    </Link>
+                                    </a>
                                 ) : null}
 
                                 {/* Github project button */}
                                 {current.githubUrl ? (
-                                    <Link target='_blank' to={current.githubUrl}>
+                                    <a target='_blank' rel='noopener noreferrer' href={current.githubUrl}>
                                         <TooltipProvider delayDuration={100}>
                                             <Tooltip>
                                                 <TooltipTrigger className='w-[60px] h-[60px] rounded-full bg-white/5 flex justify-center items-center group'>
-                                                    {/* icon */}
                                                     <BsGithub className='text-white text-3xl group-hover:text-accent' />
                                                 </TooltipTrigger>
                                                 <TooltipContent>
@@ -137,7 +134,7 @@ const Work = () => {
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
-                                    </Link>
+                                    </a>
                                 ) : null}
                             </div>
                         </div>
@@ -158,7 +155,7 @@ const Work = () => {
                                     const normalized = normalizeProject(item);
                                     return (
                                             <SwiperSlide key={normalized.num || index} className='w-full h-full'>
-                                                <Link target='_blank' to={normalized.liveUrl || normalized.githubUrl || "#"} className='h-[460px] lg:h-[520px] relative group flex items-center justify-center bg-pink-50/80 cursor-pointer'>
+                                                <a target='_blank' rel='noopener noreferrer' href={normalized.liveUrl || normalized.githubUrl || "#"} className='h-[460px] lg:h-[520px] relative group flex items-center justify-center bg-pink-50/80 cursor-pointer'>
 
                                                     {/* overlay */}
                                                     <div className='absolute top-0 bottom-0 w-full h-full bg-black/20 z-10'></div>
@@ -168,10 +165,10 @@ const Work = () => {
                                                         <img
                                                             src={normalized.thumb}
                                                             className='object-cover'
-                                                            alt=""
+                                                            alt={normalized.title || normalized.name || 'Project thumbnail'}
                                                         />
                                                     </div>
-                                                </Link>
+                                                </a>
                                             </SwiperSlide>
                                     )
                                 })

@@ -1,25 +1,24 @@
 import React from 'react';
 
-import { FaGithub, FaLinkedinIn, FaYoutube, FaTwitter, FaFacebook } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { FaGithub, FaLinkedinIn, FaTwitter, FaFacebook } from 'react-icons/fa'
 
 
 const socialItems = [
     {
         icon: <FaGithub />,
-        path: "https://github.com/sazed1237?tab=repositories"
+        path: "https://github.com/sazedul-islamm"
     },
     {
         icon: <FaLinkedinIn />,
-        path: "https://www.linkedin.com/in/sazed1237?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        path: "https://www.linkedin.com/in/sazedul-islamm"
     },
     {
         icon: <FaFacebook />,
-        path: "https://www.facebook.com/sazed9126?mibextid=ZbWKwL"
+        path: "https://www.facebook.com/sazed9126"
     },
     {
         icon: <FaTwitter />,
-        path: "https://x.com/SazedCreations?s=09"
+        path: "https://x.com/SazedCreations"
     },
 ]
 
@@ -29,7 +28,9 @@ const Social = ({ containerStyles, iconStyles }) => {
             {
                 socialItems.map((social, index) => {
                     return (
-                        <Link target='_blank' key={index} to={social.path} className={iconStyles}>{social.icon}</Link>
+                        <a key={index} href={social.path} target="_blank" rel="noopener noreferrer" className={iconStyles}>
+                            {social.icon}
+                        </a>
                     )
                 })
             }
