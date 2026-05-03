@@ -1,6 +1,7 @@
-import React from 'react';
+"use client";
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { BsArrowDownRight } from "react-icons/bs";
 import { services } from '../../helpers/servicesData';
 
@@ -30,7 +31,7 @@ const Services = () => {
                                         {service.num}
                                     </div>
 
-                                    <Link to={service.href} className='w-[50px] h-[50px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45' >
+                                    <Link href={service.href || '/contact'} className='w-[50px] h-[50px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45' >
                                         <BsArrowDownRight className='text-primary text-2xl' />
                                     </Link>
                                 </div>

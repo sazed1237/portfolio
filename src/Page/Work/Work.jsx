@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,6 +8,7 @@ import { projects } from '../../components/Projects';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import WorkSliderBtns from '../../components/WorkSliderBtns';
+import Image from 'next/image';
 
 
 
@@ -155,17 +158,19 @@ const Work = () => {
                                     const normalized = normalizeProject(item);
                                     return (
                                             <SwiperSlide key={normalized.num || index} className='w-full h-full'>
-                                                <a target='_blank' rel='noopener noreferrer' href={normalized.liveUrl || normalized.githubUrl || "#"} className='h-[460px] lg:h-[520px] relative group flex items-center justify-center bg-pink-50/80 cursor-pointer'>
+                                                <a target='_blank' rel='noopener noreferrer' href={normalized.liveUrl || normalized.githubUrl || "#"} className='h-[460px] lg:h-[520px] relative group flex items-center justify-center bg-pink-50/80 cursor-pointer overflow-hidden'>
 
                                                     {/* overlay */}
                                                     <div className='absolute top-0 bottom-0 w-full h-full bg-black/20 z-10'></div>
 
                                                     {/* thumbnail */}
                                                     <div className='relative w-full h-full'>
-                                                        <img
+                                                        <Image
                                                             src={normalized.thumb}
+                                                            fill
                                                             className='object-cover'
                                                             alt={normalized.title || normalized.name || 'Project thumbnail'}
+                                                            sizes='(max-width: 960px) 100vw, 50vw'
                                                         />
                                                     </div>
                                                 </a>

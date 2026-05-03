@@ -1,10 +1,10 @@
-# Sazed Creations — Portfolio (React + Vite)
+# Sazed Creations — Portfolio (Next.js)
 
-A personal portfolio site built with **React 18 + Vite**, Tailwind CSS, Framer Motion transitions, Radix UI (shadcn-style components), and Swiper.
+A personal portfolio site built with **Next.js**, React, Tailwind CSS, Framer Motion transitions, Radix UI (shadcn-style components), and Swiper.
 
 ## Pages / Routes
 
-Routes are defined in [src/main.jsx](src/main.jsx):
+Routes are defined in the Next.js app router under [src/app/](src/app/):
 
 - `/` → Home (composed page: Home + Services + Resume + Projects + Contact)
 - `/services` → Services
@@ -14,20 +14,20 @@ Routes are defined in [src/main.jsx](src/main.jsx):
 
 ## Tech Stack
 
-- **Frontend:** React, React Router, Vite
+- **Frontend:** React, Next.js App Router
 - **UI:** Tailwind CSS, shadcn/Radix UI components (see [src/components/ui/](src/components/ui/))
 - **Animation:** Framer Motion
 - **Slider:** Swiper
-- **HTTP:** `fetch` + Axios (GitHub stats)
+- **HTTP:** `fetch` + server route for GitHub stats
 
 ## Scripts
 
 From [package.json](package.json):
 
 - Install deps: `npm install`
-- Dev server: `npm run dev` (also `npm start` / `npm run start:dev`)
+- Dev server: `npm run dev` (also `npm run start:dev`)
 - Production build: `npm run build`
-- Preview build locally: `npm run preview`
+- Start production server: `npm start`
 - Lint: `npm run lint`
 
 ## Environment Variables
@@ -36,10 +36,10 @@ Copy [.env.example](.env.example) to `.env.local` (recommended) and fill in valu
 
 ### GitHub Stats (optional)
 
-Used by [src/components/Stats.jsx](src/components/Stats.jsx).
+Used by [src/components/Stats.jsx](src/components/Stats.jsx) through [src/app/api/github-stats/route.js](src/app/api/github-stats/route.js).
 
-- `VITE_GITHUB_USERNAME` — your GitHub username
-- `VITE_GITHUB_TOKEN` — optional GitHub token to enable commit contributions
+- `GITHUB_USERNAME` — your GitHub username
+- `GITHUB_TOKEN` — optional GitHub token to enable commit contributions
 
 Notes:
 
@@ -50,12 +50,12 @@ Notes:
 
 Used by [src/Page/Contact/Contact.jsx](src/Page/Contact/Contact.jsx).
 
-- `VITE_WEB3FORMS_ACCESS_KEY` — enables sending via Web3Forms (`https://api.web3forms.com/submit`).
+- `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` — enables sending via Web3Forms (`https://api.web3forms.com/submit`).
 - If the key is missing, the form falls back to `mailto:` so it still works locally.
 
 ### Security warning (important)
 
-Any env var prefixed with `VITE_` is bundled into the frontend and is **publicly visible**. If you set `VITE_GITHUB_TOKEN`, treat it as exposed and keep it **low-privilege**.
+Only `NEXT_PUBLIC_*` variables are bundled into the browser. Keep `GITHUB_TOKEN` server-only.
 
 ## Content Editing
 
@@ -67,7 +67,10 @@ Any env var prefixed with `VITE_` is bundled into the frontend and is **publicly
 
 ## Build & Deployment
 
-- Build: `npm run build` → outputs to `dist/`
-- Preview locally: `npm run preview`
 
-Deploy the `dist/` folder to any static host (Netlify, Vercel static, GitHub Pages, etc.).
+## Build & Deployment
+
+- Build: `npm run build`
+- Start production server: `npm start`
+
+Deploy the app to a Next.js-compatible host such as Vercel or any platform that supports `next build` and `next start`.

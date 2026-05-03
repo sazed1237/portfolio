@@ -1,10 +1,8 @@
-import React from "react";
 import { Button } from "../../components/ui/button";
 import { FiDownload } from "react-icons/fi";
 import Social from "../../components/Social";
 import Photo from "../../components/Photo";
 import Stats from "../../components/Stats";
-import Services from "../Services/Services";
 
 const Home = () => {
   return (
@@ -16,7 +14,7 @@ const Home = () => {
             <span className="text-xl">Software Engineer</span>
 
             <h1 className="h2 mb-6">
-              Hello, I'm <br />{" "}
+              Hello, I&apos;m <br />{" "}
               <span className="text-accent h1">Sazedul Islam</span>
             </h1>
             <p className="max-w-[500px] leading-snug mb-9 text-white/80">
@@ -38,7 +36,7 @@ const Home = () => {
 
             {/* button */}
             <div className="flex flex-col lg:flex-row items-center gap-8">
-              <a href="/public/Sazedul Islam Backend Engineer.pdf" download>
+              <a href="/Sazedul Islam Backend Engineer.pdf" download>
                 <Button
                   variant="outline"
                   size="lg"

@@ -1,12 +1,14 @@
-import React from 'react';
+"use client";
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Link, useLocation } from 'react-router-dom';
 import { CiMenuFries } from 'react-icons/ci';
 import { navItems } from '../helpers/navItems';
 
 
 const MobileNav = () => {
-    const location = useLocation()
+    const pathname = usePathname()
 
     return (
         <Sheet>
@@ -17,7 +19,7 @@ const MobileNav = () => {
             <SheetContent className="flex flex-col">
                 {/* logo */}
                 <div className='mb-16 mt-20 text-center'>
-                    <Link to={'/'}>
+                    <Link href={'/'}>
                         <h1 className='text-xl font-semibold'>
                             Sazed <span className='text-sm text-accent '>Creations</span>
                         </h1>
@@ -30,7 +32,7 @@ const MobileNav = () => {
                     {
                         navItems.map((nav, index) => {
                             return (
-                                <Link to={nav.path} key={index} className={`${nav.path === location?.pathname && "text-accent border-b-2 border-accent "} capitalize font-medium hover:text-accent transition-all`} >
+                                <Link href={nav.path} key={index} className={`${nav.path === pathname && "text-accent border-b-2 border-accent "} capitalize font-medium hover:text-accent transition-all`} >
                                     {nav.name}
                                 </Link>
                             )

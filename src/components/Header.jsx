@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
 import Nav from './Nav';
 import { Button } from './ui/button';
 import MobileNav from './MobileNav';
@@ -10,7 +11,7 @@ const Header = () => {
         <header className='py-5 xl:py-5 text-white sticky top-0 z-50 bg-[#121217] bg-opacity-90 backdrop-blur-sm'>
             <div className='container mx-auto flex  items-center justify-between'>
                 {/* logo */}
-                <Link to={'/'}>
+                <Link href={'/'}>
                     <h1 className='text-2xl md:text-4xl font-semibold'>
                         Sazed <span className='text-sm text-accent md:text-xl'>Creations</span>
                     </h1>
@@ -22,9 +23,11 @@ const Header = () => {
 
                     <Nav></Nav>
 
-                    <Link to={'/contact'}>
-                        <Button>Hire me</Button>
-                    </Link>
+                    <Button asChild>
+                        <Link href={'/contact'}>
+                            Hire me
+                        </Link>
+                    </Button>
                 </div>
 
 

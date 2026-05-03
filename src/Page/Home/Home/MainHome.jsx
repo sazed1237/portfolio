@@ -1,4 +1,3 @@
-import React from "react";
 import Home from "../Home";
 import Services from "../../Services/Services";
 import Resume from "../../Resume/Resume";

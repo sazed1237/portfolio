@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { navItems } from '../helpers/navItems';
 
 // const navItems = [
@@ -27,15 +29,14 @@ import { navItems } from '../helpers/navItems';
 
 const Nav = () => {
 
-    const location = useLocation()
-    // console.log(location?.pathname)
+    const pathname = usePathname()
 
     return (
         <nav className='lg:flex  gap-8'>
             {
                 navItems.map((nav, index) => {
                     return (
-                        <Link to={nav.path} key={index} className={`${nav.path === location?.pathname && "text-accent border-b-2 border-accent "} capitalize font-medium hover:text-accent transition-all`} >
+                        <Link href={nav.path} key={index} className={`${nav.path === pathname && "text-accent border-b-2 border-accent "} capitalize font-medium hover:text-accent transition-all`} >
                             {nav.name}
                         </Link>
                     )

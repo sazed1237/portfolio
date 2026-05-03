@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FaGithub, FaLinkedinIn, FaTwitter, FaFacebook } from 'react-icons/fa'
 
 

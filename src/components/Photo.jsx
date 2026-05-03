@@ -1,5 +1,7 @@
-import React from 'react';
+"use client";
+
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import sazedImage from '../assets/sazedul.png'
 
 const Photo = () => {
@@ -27,16 +29,16 @@ const Photo = () => {
                             ease: "easeInOut"
                         }
                     }}
-                    className='w-[298px] h-[298px] lg:w-[498px] lg:h-[498px] mix-blend-lighten  rounded-full absolute'>
-                    <img
-                        src={sazedImage}
-                        priority="true"
-                        quality={100}
-                        fill="true"
-                        alt="Sazedul Islam — Backend Developer"
-                        loading="lazy"
-                        className="object-contain"
-                    />
+                    className='w-[298px] h-[298px] lg:w-[498px] lg:h-[498px] mix-blend-lighten rounded-full absolute overflow-hidden'>
+                    <div className="relative w-full h-full">
+                        <Image
+                            src={sazedImage}
+                            priority
+                            fill
+                            alt="Sazedul Islam — Backend Developer"
+                            className="object-contain"
+                        />
+                    </div>
                 </motion.div>
 
                 {/* circle */}

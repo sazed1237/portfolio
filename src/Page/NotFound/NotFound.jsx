@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "../../components/ui/button";
 
 const NotFound = () => {
@@ -22,14 +24,12 @@ const NotFound = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link to="/">
-            <Button size="lg">Go Home</Button>
-          </Link>
-          <Link to="/contact">
-            <Button size="lg" variant="outline">
-              Contact
-            </Button>
-          </Link>
+          <Button size="lg" asChild>
+            <Link href="/">Go Home</Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/contact">Contact</Link>
+          </Button>
         </div>
       </div>
     </motion.section>

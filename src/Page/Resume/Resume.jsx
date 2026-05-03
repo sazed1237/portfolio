@@ -1,11 +1,10 @@
-import { icons } from "lucide-react";
-import React, { useState } from "react";
+"use client";
+
+import { useState } from "react";
 import {
   FaCss3,
-  FaFigma,
   FaHtml5,
   FaJs,
-  FaLaravel,
   FaNodeJs,
   FaPhp,
   FaReact,
@@ -22,7 +21,6 @@ import {
   SiNextdotjs,
   SiPostgresql,
   SiPrisma,
-  SiPython,
   SiRedis,
   SiTailwindcss,
   SiTypescript,

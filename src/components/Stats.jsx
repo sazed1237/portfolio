@@ -1,12 +1,9 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { projects } from './Projects';
 import { skills } from '../Page/Resume/Resume';
-import axios from 'axios';
-
-
-const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME;
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 // console.log(GITHUB_USERNAME)
 
@@ -16,7 +13,7 @@ const Stats = () => {
     const [isCommitCountAvailable, setIsCommitCountAvailable] = useState(false);
 
     useEffect(() => {
-        const cacheKey = GITHUB_USERNAME ? `github_stats_${GITHUB_USERNAME}` : null;
+        const cacheKey = 'github_stats';
         const cacheTtlMs = 1000 * 60 * 60 * 6; // 6 hours
 
         const readCache = () => {
@@ -43,12 +40,6 @@ const Stats = () => {
         };
 
         const fetchCommitContributions = async () => {
-            if (!GITHUB_USERNAME) {
-                setCommitCount(0);
-                setIsCommitCountAvailable(false);
-                return;
-            }
-
             const cached = readCache();
             if (cached?.commitCount != null && cached?.isCommitCountAvailable != null) {
                 setCommitCount(cached.commitCount);
@@ -56,44 +47,14 @@ const Stats = () => {
                 return;
             }
 
-            // Without a token, we can't reliably fetch a "total commits" count from GitHub's public REST APIs.
-            if (!GITHUB_TOKEN) {
-                setCommitCount(0);
-                setIsCommitCountAvailable(false);
-                writeCache({ commitCount: 0, isCommitCountAvailable: false });
-                return;
-            }
-
             try {
-                const query = `
-                  query($login: String!) {
-                    user(login: $login) {
-                      contributionsCollection {
-                        totalCommitContributions
-                      }
-                    }
-                  }
-                `;
-
-                const response = await axios.post(
-                    'https://api.github.com/graphql',
-                    {
-                        query,
-                        variables: { login: GITHUB_USERNAME },
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${GITHUB_TOKEN}`,
-                            Accept: 'application/vnd.github+json',
-                        },
-                    }
-                );
-
-                const total = response?.data?.data?.user?.contributionsCollection?.totalCommitContributions;
+                const response = await fetch('/api/github-stats', { cache: 'no-store' });
+                const data = await response.json();
+                const total = data?.commitCount;
                 const normalized = typeof total === 'number' ? total : 0;
                 setCommitCount(normalized);
-                setIsCommitCountAvailable(true);
-                writeCache({ commitCount: normalized, isCommitCountAvailable: true });
+                setIsCommitCountAvailable(Boolean(data?.isCommitCountAvailable));
+                writeCache({ commitCount: normalized, isCommitCountAvailable: Boolean(data?.isCommitCountAvailable) });
             } catch (error) {
                 console.error('Error fetching GitHub commit contributions:', error);
                 setCommitCount(0);

@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+"use client";
+
+import { useState } from 'react';
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Input } from '../../components/ui/input';
@@ -8,7 +10,7 @@ import { Button } from '../../components/ui/button';
 import { services } from '../../helpers/servicesData';
 
 
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 const CONTACT_TO_EMAIL = 'sazedulislam9126@gmail.com';
 
 
@@ -31,7 +33,7 @@ const info = [
 ]
 
 const Contact = () => {
-    const serviceOptions = useMemo(() => services ?? [], []);
+    const serviceOptions = services ?? [];
 
     const [form, setForm] = useState({
         firstName: '',
@@ -131,7 +133,7 @@ const Contact = () => {
                     {/* form */}
                     <div className='lg:w-[54%]'>
                         <form onSubmit={onSubmit} className='flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl'>
-                            <h3 className='text-3xl text-accent'>Let's Create Something Amazing</h3>
+                            <h3 className='text-3xl text-accent'>Let&apos;s Create Something Amazing</h3>
                             <p className='text-white/60'>Ready to bring your ideas to life? Get in touch!</p>
 
                             {/* input */}
