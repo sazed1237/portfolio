@@ -21,7 +21,7 @@ const PageTransition = ({ children }) => {
             setShowIntro(shouldRun);
 
             // Mark that the intro has run so subsequent client navigation skips it
-            try { sessionStorage.setItem('ranIntro', 'true'); } catch (e) {}
+            try { sessionStorage.setItem('ranIntro', 'true'); } catch (e) { console.warn('sessionStorage.setItem failed', e); }
         } catch (e) {
             setShowIntro(false);
         }

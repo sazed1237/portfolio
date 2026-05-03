@@ -20,7 +20,7 @@ const StairTransition = () => {
             const shouldRun = !seen || navType === 'reload';
             setShowIntro(shouldRun);
 
-            try { sessionStorage.setItem('ranIntro', 'true'); } catch (e) {}
+            try { sessionStorage.setItem('ranIntro', 'true'); } catch (e) { console.warn('sessionStorage.setItem failed', e); }
         } catch (e) {
             setShowIntro(false);
         }
