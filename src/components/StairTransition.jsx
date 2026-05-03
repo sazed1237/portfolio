@@ -1,19 +1,39 @@
 "use client";
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Stairs from './Stairs';
 
 const StairTransition = () => {
-    const pathname = usePathname()
+    const [showIntro, setShowIntro] = useState(false);
+
+    useEffect(() => {
+        try {
+            const navEntries = performance.getEntriesByType
+                ? performance.getEntriesByType('navigation')
+                : [];
+            const navType = navEntries && navEntries.length
+                ? navEntries[0].type
+                : (performance && performance.navigation && performance.navigation.type === 1 ? 'reload' : 'navigate');
+
+            const seen = typeof window !== 'undefined' && sessionStorage.getItem('ranIntro');
+            const shouldRun = !seen || navType === 'reload';
+            setShowIntro(shouldRun);
+
+            try { sessionStorage.setItem('ranIntro', 'true'); } catch (e) {}
+        } catch (e) {
+            setShowIntro(false);
+        }
+    }, []);
+
+    if (!showIntro) return null;
 
     return (
         <>
             <AnimatePresence mode='wait'>
-                <div key={pathname}>
-
+                <div>
                     <div className='h-screen w-screen fixed top-0 right-0 left-0 pointer-events-none z-40 flex'>
-                        <Stairs></Stairs>
+                        <Stairs />
                     </div>
 
                     <motion.div
@@ -24,7 +44,7 @@ const StairTransition = () => {
                             transition: {
                                 delay: 1,
                                 duration: 0.4,
-                                ease: "easeInOut",
+                                ease: 'easeInOut',
                             },
                         }}
                     />

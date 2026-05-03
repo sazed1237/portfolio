@@ -12,6 +12,13 @@ const MainHome = () => {
         <h2 className="text-4xl font-bold text-center my-5 ">
           My <span className="text-accent">Services</span>
         </h2>
+        <p className="text-white/70 mt-3 text-center max-w-[900px] mx-auto px-4">
+          I deliver professional backend and full-stack solutions focused on
+          reliability, security, and performance. Below are the core services I
+          offer — each can be scoped to fit short-term projects or long-term
+          partnerships.
+        </p>
+
         <Services></Services>
       </div>
       <Resume></Resume>

@@ -1,5 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import {
   FaCss3,
@@ -25,22 +28,10 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
-import { motion } from "framer-motion";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../components/ui/tabs";
-import { ScrollArea } from "../../components/ui/scroll-area";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../../components/ui/tooltip";
 
-// about data
+const profileImage = "/Sazedul%20Islam.jpg";
+const resumePdf = "/Sazedul%20Islam%20Backend%20Engineer.pdf";
+
 const about = {
   title: "About Me",
   description: `
@@ -53,41 +44,18 @@ I have hands-on experience deploying and operating backend systems using AWS (S3
 I enjoy solving complex problems, writing clean and well-documented code, and working in Agile, collaborative environments. I’m always eager to learn, improve system reliability, and contribute to products that deliver real value to users and teams.
   `,
   info: [
-    {
-      fieldName: "Name",
-      fieldValue: "Sazedul Islam",
-    },
-    {
-      fieldName: "Phone",
-      fieldValue: "+880 1786 549 126",
-    },
-    {
-      fieldName: "Experience",
-      fieldValue: "2+ Years",
-    },
-    {
-      fieldName: "Location",
-      fieldValue: "Dhaka, Bangladesh",
-    },
-    {
-      fieldName: "Email",
-      fieldValue: "sazedulislam9126@gmail.com",
-    },
-    {
-      fieldName: "Freelance",
-      fieldValue: "Available",
-    },
-    {
-      fieldName: "Languages",
-      fieldValue: "English, Bengali, Hindi",
-    },
+    { fieldName: "Name", fieldValue: "Sazedul Islam" },
+    { fieldName: "Phone", fieldValue: "+880 1786 549 126" },
+    { fieldName: "Experience", fieldValue: "2+ Years" },
+    { fieldName: "Location", fieldValue: "Dhaka, Bangladesh" },
+    { fieldName: "Email", fieldValue: "sazedulislam9126@gmail.com" },
+    { fieldName: "Freelance", fieldValue: "Available" },
+    { fieldName: "Languages", fieldValue: "English, Bengali, Hindi" },
   ],
 };
 
-// experience data
 const experience = {
-  icon: "",
-  title: "My Experience",
+  title: "Experience",
   description:
     "I have professional experience across both technical and client-facing roles. My background includes building scalable backend systems, collaborating with cross-functional teams, and managing key client accounts. This combination has strengthened my communication skills, business understanding, and ability to deliver technical solutions aligned with real-world requirements.",
   items: [
@@ -119,10 +87,8 @@ const experience = {
   ],
 };
 
-// education data
 const education = {
-  icon: "",
-  title: "My Education",
+  title: "Education",
   description:
     "I have built a strong academic and practical foundation in computer science and software development through formal education and professional training.",
   items: [
@@ -149,311 +115,227 @@ const education = {
   ],
 };
 
-// skills data
 export const skills = {
-  title: "My Skills",
+  title: "Skills",
   description:
     "I work primarily as a backend-focused engineer with strong full-stack collaboration experience.",
   skillsList: [
-    {
-      icon: <FaJs />,
-      name: "JavaScript (ES6+)",
-    },
-    {
-      icon: <SiTypescript />,
-      name: "TypeScript",
-    },
-    {
-      icon: <FaNodeJs />,
-      name: "Node.js",
-    },
-    {
-      icon: <SiNestjs />,
-      name: "NestJS",
-    },
-    {
-      icon: <SiExpress />,
-      name: "Express.js",
-    },
-    {
-      icon: <SiPostgresql />,
-      name: "PostgreSQL",
-    },
-    {
-      icon: <SiMongodb />,
-      name: "MongoDB",
-    },
-    {
-      icon: <SiRedis />,
-      name: "Redis",
-    },
-    {
-      icon: <SiPrisma />,
-      name: "Prisma",
-    },
-    {
-      icon: <FaReact />,
-      name: "React.js",
-    },
-    {
-      icon: <SiNextdotjs />,
-      name: "Next.js",
-    },
-    {
-      icon: <SiDocker />,
-      name: "Docker",
-    },
-    {
-      icon: <SiAmazonaws />,
-      name: "AWS",
-    },
-    {
-      icon: <SiGithub />,
-      name: "Git & GitHub",
-    },
-    {
-      icon: <SiFirebase />,
-      name: "Firebase",
-    },
-    {
-      icon: <SiTailwindcss />,
-      name: "Tailwind CSS",
-    },
-    {
-      icon: <FaHtml5 />,
-      name: "HTML5",
-    },
-    {
-      icon: <FaCss3 />,
-      name: "CSS3",
-    },
-    {
-      icon: <FaPhp />,
-      name: "PHP",
-    },
-    {
-      icon: <FaWordpress />,
-      name: "WordPress",
-    },
+    { icon: <FaJs />, name: "JavaScript (ES6+)" },
+    { icon: <SiTypescript />, name: "TypeScript" },
+    { icon: <FaNodeJs />, name: "Node.js" },
+    { icon: <SiNestjs />, name: "NestJS" },
+    { icon: <SiExpress />, name: "Express.js" },
+    { icon: <SiPostgresql />, name: "PostgreSQL" },
+    { icon: <SiMongodb />, name: "MongoDB" },
+    { icon: <SiRedis />, name: "Redis" },
+    { icon: <SiPrisma />, name: "Prisma" },
+    { icon: <FaReact />, name: "React.js" },
+    { icon: <SiNextdotjs />, name: "Next.js" },
+    { icon: <SiDocker />, name: "Docker" },
+    { icon: <SiAmazonaws />, name: "AWS" },
+    { icon: <SiGithub />, name: "Git & GitHub" },
+    { icon: <SiFirebase />, name: "Firebase" },
+    { icon: <SiTailwindcss />, name: "Tailwind CSS" },
+    { icon: <FaHtml5 />, name: "HTML5" },
+    { icon: <FaCss3 />, name: "CSS3" },
+    { icon: <FaPhp />, name: "PHP" },
+    { icon: <FaWordpress />, name: "WordPress" },
   ],
 };
 
 const Resume = () => {
-  const [showFullDescription, setShowFullDescription] = useState(false);
   const [showAboutFullDescription, setShowAboutFullDescription] = useState(false);
-  // read more button toggle
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
-  };
-
-  const toggleAboutDescription = () => {
-    setShowAboutFullDescription(!showAboutFullDescription);
-  };
-
   const aboutParagraphs = about.description
     .trim()
     .split(/\n\s*\n/g)
-    .map((p) => p.replace(/\s*\n\s*/g, ' ').trim())
+    .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
     .filter(Boolean);
 
+  const quickFacts = about.info.slice(0, 5);
+  const featuredSkills = skills.skillsList.slice(0, 10);
+  const visibleAboutParagraphs = showAboutFullDescription ? aboutParagraphs : aboutParagraphs.slice(0, 1);
+
   return (
-    <section>
+    <section className="py-12">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 1,
-          transition: {
-            delay: 2.4,
-            duration: 0.4,
-            ease: "easeIn",
-          },
-        }}
-        className="min-h-[80vh] flex items-center justify-center py-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0, transition: { delay: 0.15, duration: 0.5, ease: "easeOut" } }}
+        className="container mx-auto"
       >
-        <div className="container mx-auto">
-          <Tabs
-            defaultValue="experience"
-            className="flex flex-col lg:flex-row gap-[60px]"
-          >
-            <TabsList className="flex flex-col w-full max-w-[380px] mx-auto lg:mx-0 gap-6">
-              <TabsTrigger value="experience">Experience</TabsTrigger>
-              <TabsTrigger value="education">Education</TabsTrigger>
-              <TabsTrigger value="skills">Skills</TabsTrigger>
-              <TabsTrigger value="about">About me</TabsTrigger>
-            </TabsList>
-
-            {/* content */}
-            <div className="min-h-[70vh w-full]">
-              {/* experience */}
-              <TabsContent value="experience" className="w-full">
-                <div className="flex flex-col gap-[30px] text-center lg:text-left">
-                  <h3 className="text-4xl font-bold">{experience.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto lg:mx-0 ">
-                    {!showFullDescription
-                      ? experience.description.slice(0, 300) + "..."
-                      : experience.description}
-                    <button
-                      onClick={toggleDescription}
-                      className="text-accent hover:underline focus:outline-none"
-                    >
-                      {showFullDescription ? "Read less" : "Read more"}
-                    </button>
-                  </p>
-
-                  <ScrollArea className="h-[400px]">
-                    <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                      {experience.items.map((item, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                          >
-                            <span className="text-accent">{item.duration}</span>
-                            <h3 className="text-xl max-w-[360px] min-h-[60px] text-center lg:text-left">
-                              {item.position}
-                            </h3>
-                            <div className="flex items-center gap-3">
-                              {/* dot */}
-                              <span className="h-[6px] w-[6px] rounded-full bg-accent"></span>
-                              <p className="text-white/60 leading-snug">
-                                {item.company}
-                              </p>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </ScrollArea>
+        <div className="grid gap-8 lg:grid-cols-[340px_minmax(0,1fr)] items-start">
+          <aside className="lg:sticky lg:top-24 space-y-6">
+            <div className="rounded-2xl bg-[#1f1f24] border border-white/5 overflow-hidden shadow-xl">
+              <div className="relative h-[360px] w-full bg-[#17171c]">
+                <Image
+                  src={profileImage}
+                  alt="Sazedul Islam"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
+              <div className="p-6 space-y-4">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-accent/90">Resume</p>
+                  <h1 className="text-3xl font-bold mt-2">Sazedul Islam</h1>
+                  <p className="text-white/65 mt-2">Backend Software Engineer</p>
                 </div>
-              </TabsContent>
 
-              {/* education */}
-              <TabsContent value="education" className="w-full">
-                <div className="flex flex-col gap-[30px] text-center lg:text-left">
-                  <h3 className="text-4xl font-bold">{education.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto lg:mx-0 ">
-                    {!showFullDescription
-                      ? education.description.slice(0, 300) + "..."
-                      : education.description}
-                    <button
-                      onClick={toggleDescription}
-                      className="text-accent hover:underline focus:outline-none"
-                    >
-                      {showFullDescription ? "Read less" : "Read more"}
-                    </button>
-                  </p>
+                <p className="text-white/70 leading-relaxed">
+                  Backend-focused engineer building secure APIs, real-time systems, and scalable application architecture.
+                </p>
 
-                  <ScrollArea className="h-[400px]">
-                    <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                      {education.items.map((item, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                          >
-                            <span className="text-accent">{item.duration}</span>
-                            <h3 className="text-xl max-w-[360px] min-h-[60px] text-center lg:text-left">
-                              {item.degree}
-                            </h3>
-                            <div className="flex items-center gap-3">
-                              {/* dot */}
-                              <span className="h-[6px] w-[6px] rounded-full bg-accent"></span>
-                              <p className="text-white/60 leading-snug">
-                                {item.institution}
-                              </p>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </ScrollArea>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href={resumePdf}
+                    download
+                    className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-3 text-primary font-semibold transition-opacity hover:opacity-90"
+                  >
+                    Download PDF
+                  </a>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+                  >
+                    Contact Me
+                  </Link>
                 </div>
-              </TabsContent>
+              </div>
+            </div>
 
-              {/* skills */}
-              <TabsContent value="skills" className="w-full h-full">
-                <div className="flex flex-col  gap-[30px] text-center lg:text-left">
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto lg:mx-0 ">
-                    {!showFullDescription
-                      ? skills.description.slice(0, 300) + "..."
-                      : skills.description}
-                    <button
-                      onClick={toggleDescription}
-                      className="text-accent hover:underline focus:outline-none"
-                    >
-                      {showFullDescription ? "Read less" : "Read more"}
-                    </button>
-                  </p>
-                  <ScrollArea className="h-[400px]">
-                    <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:gap-[38px] gap-4">
-                      {skills.skillsList.map((skill, index) => {
-                        return (
-                          <li key={index}>
-                            <TooltipProvider delayDuration={100}>
-                              <Tooltip>
-                                <TooltipTrigger className="w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group ">
-                                  <div className="text-6xl group-hover:text-accent transition-all duration-300">
-                                    {skill.icon}
-                                  </div>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p className="capitalize">{skill.name}</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </ScrollArea>
+            <div className="rounded-2xl bg-[#1f1f24] border border-white/5 p-6 shadow-xl space-y-5">
+              <h2 className="text-xl font-semibold">Quick Facts</h2>
+              <ul className="space-y-3">
+                {quickFacts.map((item) => (
+                  <li key={item.fieldName} className="flex items-start justify-between gap-4 text-sm">
+                    <span className="text-white/55">{item.fieldName}</span>
+                    <span className="text-right text-white/90 font-medium">{item.fieldValue}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-2xl bg-[#1f1f24] border border-white/5 p-6 shadow-xl space-y-5">
+              <h2 className="text-xl font-semibold">Top Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {featuredSkills.map((skill) => (
+                  <span key={skill.name} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/80">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <div className="space-y-8">
+            <section className="rounded-3xl bg-[#1f1f24] border border-white/5 p-6 md:p-8 shadow-xl">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.28em] text-accent/90">Professional Profile</p>
+                  <h2 className="mt-2 text-4xl font-bold">About Me</h2>
                 </div>
-              </TabsContent>
+                <p className="max-w-xl text-white/60">
+                  A concise summary of experience, technical direction, and the value I bring to teams and products.
+                </p>
+              </div>
 
-              {/* about */}
-              <TabsContent value="about" className="w-full">
-                <div className="flex flex-col gap-[30px] text-center lg:text-left">
-                  <h3 className="text-4xl font-bold">{about.title}</h3>
+              <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                <div className="space-y-4 text-white/75 leading-relaxed">
+                  {visibleAboutParagraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
 
-                  <div className="max-w-[600px] text-white/60 mx-auto lg:mx-0 space-y-4">
-                    {(showAboutFullDescription ? aboutParagraphs : aboutParagraphs.slice(0, 1)).map(
-                      (paragraph, idx) => (
-                        <p key={idx}>{paragraph}</p>
-                      )
-                    )}
+                  {aboutParagraphs.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setShowAboutFullDescription((current) => !current)}
+                      className="text-accent text-sm font-semibold hover:underline"
+                    >
+                      {showAboutFullDescription ? "Read less" : "Read more"}
+                    </button>
+                  )}
+                </div>
 
-                    {aboutParagraphs.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={toggleAboutDescription}
-                        className="text-accent hover:underline focus:outline-none"
-                      >
-                        {showAboutFullDescription ? "Read less" : "Read more"}
-                      </button>
-                    )}
-                  </div>
-
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-10 w-full max-w-[720px] mx-auto lg:mx-0">
-                    {about.info.map((item, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className="w-full flex flex-wrap items-center justify-center lg:justify-start gap-x-2 gap-y-1 min-w-0"
-                        >
-                          <span className="text-white/60 shrink-0">
-                            {item.fieldName}:
-                          </span>
-                          <span className="text-xl min-w-0 break-words">
-                            {item.fieldValue}
-                          </span>
-                        </li>
-                      );
-                    })}
+                <div className="rounded-2xl bg-[#17171c] border border-white/5 p-5">
+                  <h3 className="text-lg font-semibold mb-4">Core Focus</h3>
+                  <ul className="space-y-3 text-white/75">
+                    <li>• Backend architecture and API development</li>
+                    <li>• Authentication, authorization, and security</li>
+                    <li>• Database design, optimization, and scaling</li>
+                    <li>• Real-time and background processing systems</li>
                   </ul>
                 </div>
-              </TabsContent>
-            </div>
-          </Tabs>
+              </div>
+            </section>
+
+            <section className="rounded-3xl bg-[#1f1f24] border border-white/5 p-6 md:p-8 shadow-xl">
+              <div className="flex items-end justify-between gap-4 mb-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.28em] text-accent/90">Career</p>
+                  <h2 className="mt-2 text-3xl font-bold">Experience</h2>
+                </div>
+              </div>
+
+              <div className="space-y-5">
+                {experience.items.map((item) => (
+                  <article
+                    key={`${item.position}-${item.duration}`}
+                    className="relative rounded-2xl border border-white/5 bg-[#17171c] p-5 md:p-6"
+                  >
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <p className="text-accent text-sm font-medium">{item.duration}</p>
+                        <h3 className="mt-1 text-xl font-semibold text-white">{item.position}</h3>
+                      </div>
+                      <div className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                        {item.company}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-3xl bg-[#1f1f24] border border-white/5 p-6 md:p-8 shadow-xl">
+              <p className="text-sm uppercase tracking-[0.28em] text-accent/90">Academic Path</p>
+              <h2 className="mt-2 text-3xl font-bold">Education</h2>
+
+              <div className="mt-6 grid gap-5 md:grid-cols-2">
+                {education.items.map((item) => (
+                  <article
+                    key={`${item.degree}-${item.duration}`}
+                    className="rounded-2xl border border-white/5 bg-[#17171c] p-5"
+                  >
+                    <p className="text-accent text-sm font-medium">{item.duration}</p>
+                    <h3 className="mt-2 text-xl font-semibold text-white">{item.degree}</h3>
+                    <p className="mt-3 text-white/65">{item.institution}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-3xl bg-[#1f1f24] border border-white/5 p-6 md:p-8 shadow-xl">
+              <p className="text-sm uppercase tracking-[0.28em] text-accent/90">Technical Toolkit</p>
+              <h2 className="mt-2 text-3xl font-bold">Skills</h2>
+              <p className="mt-3 max-w-2xl text-white/60">
+                A practical set of technologies used across backend, full-stack integration, deployment, and product delivery.
+              </p>
+
+              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                {skills.skillsList.map((skill) => (
+                  <div
+                    key={skill.name}
+                    className="rounded-2xl border border-white/5 bg-[#17171c] p-4 text-center transition-transform hover:-translate-y-0.5"
+                  >
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-2xl text-accent">
+                      {skill.icon}
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-white/80">{skill.name}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </motion.div>
     </section>

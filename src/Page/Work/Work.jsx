@@ -1,194 +1,74 @@
 "use client";
 
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { projects } from '../../components/Projects';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
-import { BsArrowUpRight, BsGithub } from "react-icons/bs";
-import WorkSliderBtns from '../../components/WorkSliderBtns';
 import Image from 'next/image';
+import Link from 'next/link';
+import { projects } from '../../components/Projects';
 
+const ITEMS_PER_PAGE = 8; // 4 per row x 2 rows
 
+const slugify = (s) =>
+  String(s)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 
 const Work = () => {
+  const projectItems = useMemo(() => projects?.items ?? [], []);
+  const [page, setPage] = useState(1);
 
-    const projectItems = useMemo(() => projects?.items ?? [], []);
+  const totalPages = Math.max(1, Math.ceil(projectItems.length / ITEMS_PER_PAGE));
 
-    const normalizeProject = (item) => {
-        const title = item?.title ?? item?.name ?? "";
-        const liveUrl = item?.live ?? item?.liveDemo ?? "";
-        const githubUrl = item?.github ?? "";
+  const paged = projectItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
-        const stackNames = Array.isArray(item?.stack)
-            ? item.stack.map(s => (typeof s === 'string' ? s : s?.name)).filter(Boolean)
-            : Array.isArray(item?.techStack)
-                ? item.techStack.filter(Boolean)
-                : [];
+  return (
+    <section className="min-h-[80vh] py-12">
+      <div className="container mx-auto">
+        {/* <h2 className="text-4xl font-bold mb-6">{projects.title}</h2>
+        <p className="text-white/70 mb-8">{projects.description}</p> */}
 
-        const responsibilities = Array.isArray(item?.responsibilities) ? item.responsibilities : [];
-
-        return {
-            raw: item,
-            num: item?.num ?? "",
-            category: item?.category ?? "",
-            title,
-            description: item?.description ?? "",
-            responsibilities,
-            stackNames,
-            thumb: item?.thumb,
-            liveUrl,
-            githubUrl,
-        };
-    };
-
-    const [projectIndex, setProjectIndex] = useState(0);
-    const current = normalizeProject(projectItems[projectIndex] ?? projectItems[0] ?? {});
-
-
-    const handleSlideChange = (swiper) => {
-        setProjectIndex(swiper.activeIndex);
-    };
-
-    return (
-        <motion.section
-            initial={{ opacity: 0 }}
-            animate={{
-                opacity: 1,
-                transition: { delay: 2.4, duration: 0.4, ease: "easeIn" }
-            }}
-            className='min-h-[80vh] flex flex-col justify-center py-12'
-        >
-            <div className='container mx-auto'>
-                <div className='flex flex-col-reverse lg:flex-row lg:gap-[30px]'>
-
-                    {/* details */}
-                    <div className='w-full lg:w-[50%]  flex lg:justify-between '>
-
-                        <div className='w-[95%] flex flex-col gap-[30px]  '>
-
-                            {/* outline num */}
-                            <div className='text-8xl leading-none font-extrabold text-transparent text-outline'>
-                                {current.num}
-                            </div>
-
-                            {/* project category */}
-                            <h2 className='text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize'>
-                                {current.category} project
-                            </h2>
-                            <h3 className='text-accent text-xl'>{current.title}</h3>
-                            <p className='text-white/60'>{current.description}</p>
-
-                            {!!current.responsibilities.length && (
-                                <ul className='list-disc pl-5 text-white/60 space-y-1'>
-                                    {current.responsibilities.slice(0, 5).map((text, index) => (
-                                        <li key={index}>{text}</li>
-                                    ))}
-                                </ul>
-                            )}
-
-                            {/* stack */}
-                            <ul className='grid grid-cols-1 md:grid-cols-4  gap-2'>
-                                {
-                                    current.stackNames.map((name, index) => {
-                                        return (
-                                            <li key={index} className='text-sm text-accent'>
-                                                {name}
-                                                {/* remove the last comma */}
-                                                {index !== current.stackNames.length - 1 && ","}
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-
-                            {/* border */}
-                            <div className='border border-white/20'></div>
-
-                            {/* button */}
-                            <div className='flex items-center gap-4'>
-                                {/* live project button */}
-                                {current.liveUrl ? (
-                                    <a target='_blank' rel='noopener noreferrer' href={current.liveUrl}>
-                                        <TooltipProvider delayDuration={100}>
-                                            <Tooltip>
-                                                <TooltipTrigger className='w-[60px] h-[60px] rounded-full bg-white/5 flex justify-center items-center group'>
-                                                    <BsArrowUpRight className='text-white text-3xl group-hover:text-accent' />
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>Live Project</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </a>
-                                ) : null}
-
-                                {/* Github project button */}
-                                {current.githubUrl ? (
-                                    <a target='_blank' rel='noopener noreferrer' href={current.githubUrl}>
-                                        <TooltipProvider delayDuration={100}>
-                                            <Tooltip>
-                                                <TooltipTrigger className='w-[60px] h-[60px] rounded-full bg-white/5 flex justify-center items-center group'>
-                                                    <BsGithub className='text-white text-3xl group-hover:text-accent' />
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>Github Repository</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </a>
-                                ) : null}
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    {/* thumbnail */}
-                    <div className='w-full lg:w-[50%] h-full '>
-                        <Swiper
-                            spaceBetween={30}
-                            slidesPerView={1}
-                            className='mb-12 lg:h-[440px]'
-                            onSlideChange={handleSlideChange}
-                        >
-                            {
-                                projectItems.map((item, index) => {
-                                    const normalized = normalizeProject(item);
-                                    return (
-                                            <SwiperSlide key={normalized.num || index} className='w-full h-full'>
-                                                <a target='_blank' rel='noopener noreferrer' href={normalized.liveUrl || normalized.githubUrl || "#"} className='h-[460px] lg:h-[520px] relative group flex items-center justify-center bg-pink-50/80 cursor-pointer overflow-hidden'>
-
-                                                    {/* overlay */}
-                                                    <div className='absolute top-0 bottom-0 w-full h-full bg-black/20 z-10'></div>
-
-                                                    {/* thumbnail */}
-                                                    <div className='relative w-full h-full'>
-                                                        <Image
-                                                            src={normalized.thumb}
-                                                            fill
-                                                            className='object-cover'
-                                                            alt={normalized.title || normalized.name || 'Project thumbnail'}
-                                                            sizes='(max-width: 960px) 100vw, 50vw'
-                                                        />
-                                                    </div>
-                                                </a>
-                                            </SwiperSlide>
-                                    )
-                                })
-                            }
-                            {/* slider buttons */}
-                            <WorkSliderBtns
-                                containerStyles='flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] lg:bottom-0 z-20 w-full justify-between lg:w-max lg:justify-none'
-                                btnStyles='bg-accent hover:bg-accent-hover text-primary text-[22px] w-[40px] h-[40px] flex justify-center items-center transition-all'
-                            />
-                        </Swiper>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {paged.map((item, idx) => {
+            const title = item.title || item.name || '';
+            const slug = slugify(title || item.num || `project-${(page - 1) * ITEMS_PER_PAGE + idx}`);
+            return (
+              <Link key={slug} href={`/projects/${slug}`} className="group block bg-[#1f1f23] rounded overflow-hidden shadow-lg">
+                <div className="relative h-48 w-full">
+                  <Image src={item.thumb} alt={title} fill className="object-cover" />
                 </div>
-            </div>
-        </motion.section>
-    );
+                <div className="p-4">
+                  <div className="text-sm text-accent mb-1">{item.category}</div>
+                  <h3 className="text-lg font-semibold text-white">{title}</h3>
+                  <p className="text-white/60 text-sm mt-2 line-clamp-3">{item.description}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* pagination */}
+        <div className="flex items-center justify-between mt-8">
+          <div className="text-white/60">Page {page} of {totalPages}</div>
+          <div className="flex items-center gap-2">
+            <button
+              className="px-3 py-1 bg-white/5 rounded disabled:opacity-50"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+            >
+              Prev
+            </button>
+            <button
+              className="px-3 py-1 bg-white/5 rounded disabled:opacity-50"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Work;
