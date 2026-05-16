@@ -1,6 +1,11 @@
-name = "sazed-creations-portfolio"
+name = "sazedul-islam-portfolio"
 compatibility_date = "2026-05-03"
 compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
+[build]
+command = "npx opennextjs-cloudflare build"
+[assets]
+directory = ".open-next/assets"
 
 [vars]
 NEXT_PUBLIC_SITE_URL = "http://localhost:3000"
