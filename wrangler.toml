@@ -3,7 +3,7 @@ compatibility_date = "2026-05-03"
 compatibility_flags = ["nodejs_compat"]
 main = ".open-next/worker.js"
 [build]
-command = "npx opennextjs-cloudflare build"
+command = "npm run build"
 [assets]
 directory = ".open-next/assets"
 
