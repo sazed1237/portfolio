@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import profileImageFile from "@/assets/sazedul Islam.jpg";
+import profileImageFile from "@/assets/Sazedul Islam.jpg";
 import {
   FaCss3,
   FaHtml5,
